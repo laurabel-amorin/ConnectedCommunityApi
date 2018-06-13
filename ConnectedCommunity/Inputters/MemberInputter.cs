@@ -10,10 +10,6 @@ namespace ConnectedCommunity.Inputters
 {
     public class MemberInputter:Inputter<MemberInput, Member>
     {
-        private readonly MemberInput memberInput;
-        private readonly int memberId;
-        private Member member;
-
         public MemberInputter(MemberInput memberInput):base(memberInput)
         {
 

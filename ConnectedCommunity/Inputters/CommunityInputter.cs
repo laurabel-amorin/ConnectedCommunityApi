@@ -10,10 +10,6 @@ namespace ConnectedCommunity.Inputters
 {
     public class CommunityInputter:Inputter<CommunityInput, Community>
     {
-        private readonly CommunityInput communityInput;
-        private readonly int communityId;
-        private Community community;
-
         public CommunityInputter(CommunityInput communityInput):base(communityInput)
         {
 

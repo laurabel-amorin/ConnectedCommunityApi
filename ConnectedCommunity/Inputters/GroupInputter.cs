@@ -10,10 +10,6 @@ namespace ConnectedCommunity.Inputters
 {
     public class GroupInputter:Inputter<GroupInput, Group>
     {
-        private readonly GroupInput groupInput;
-        private readonly int groupId;
-        private Group group;
-
         public GroupInputter(GroupInput groupInput):base(groupInput)
         {
 

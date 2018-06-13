@@ -10,10 +10,6 @@ namespace ConnectedCommunity.Inputters
 {
     public class CommentInputter:Inputter<CommentInput, Comment>
     {
-        private readonly CommentInput commentInput;
-        private readonly int commentId;
-        private Comment comment;
-
         public CommentInputter(CommentInput commentInput):base(commentInput)
         {
 

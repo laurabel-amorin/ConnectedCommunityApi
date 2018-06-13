@@ -10,10 +10,6 @@ namespace ConnectedCommunity.Inputters
 {
     public class PostInputter:Inputter<PostInput, Post>
     {
-        private readonly PostInput postInput;
-        private readonly int postId;
-        private Post post;
-
         public PostInputter(PostInput postInput):base(postInput)
         {
 
