@@ -15,7 +15,7 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public CommentInputter(CommentInput commentInput, int commentId) : base(commentInput, commentId)
+        public CommentInputter(CommentInput commentInput, Comment currentComment) : base(commentInput, currentComment)
         {
 
         }

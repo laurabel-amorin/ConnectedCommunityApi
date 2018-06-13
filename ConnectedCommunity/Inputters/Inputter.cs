@@ -10,22 +10,22 @@ namespace ConnectedCommunity.Models.InputModels
     {
         protected readonly TI input;
         protected T processedInput;
-        protected readonly int id;
+        protected T current;
 
         public Inputter(TI input)
         {
             this.input = input;
         }
 
-        public Inputter(TI input, int id)
+        public Inputter(TI input, T current)
         {
             this.input = input;
-            this.id = id;
+            this.current = current;
         }
 
         public ValidationResult Validate()
         {
-            if (id == 0)
+            if (current==null)
             {
                 return ValidateNew();
             }

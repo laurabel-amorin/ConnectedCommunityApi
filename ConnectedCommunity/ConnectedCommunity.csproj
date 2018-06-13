@@ -5,8 +5,9 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Folder Include="Content\" />
     <Folder Include="wwwroot\" />
-    <Folder Include="App_Data\_Media\" />
+    <Folder Include="Content\_Media\" />
   </ItemGroup>
 
   <ItemGroup>

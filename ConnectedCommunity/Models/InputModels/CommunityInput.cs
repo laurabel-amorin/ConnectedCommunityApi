@@ -8,7 +8,7 @@ namespace ConnectedCommunity.Models.InputModels
     public class CommunityInput
     {
         public int SchoolId { get; set; }
-        public int SchoolName { get; set; }
-        public int Name { get; set; }
+        public string SchoolName { get; set; }
+        public string Name { get; set; }
     }
 }

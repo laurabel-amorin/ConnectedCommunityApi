@@ -262,4 +262,4 @@ __pycache__/
 
 
 #Media directory
-App_Data/_Media/*
+Content/_Media/*

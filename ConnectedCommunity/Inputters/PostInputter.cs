@@ -15,7 +15,7 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public PostInputter(PostInput postInput, int postId) : base(postInput, postId)
+        public PostInputter(PostInput postInput, Post currentPost) : base(postInput, currentPost)
         {
 
         }

@@ -15,7 +15,7 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public GroupInputter(GroupInput groupInput, int groupId) : base(groupInput, groupId)
+        public GroupInputter(GroupInput groupInput, Group currentGroup) : base(groupInput, currentGroup)
         {
 
         }

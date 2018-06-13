@@ -15,7 +15,7 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public MemberInputter(MemberInput memberInput, int memberId) : base(memberInput, memberId)
+        public MemberInputter(MemberInput memberInput, Member currentMember) : base(memberInput, currentMember)
         {
 
         }
