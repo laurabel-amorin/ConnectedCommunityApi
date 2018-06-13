@@ -5,7 +5,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Folder Include="Inputters\" />
     <Folder Include="wwwroot\" />
     <Folder Include="App_Data\_Media\" />
   </ItemGroup>
