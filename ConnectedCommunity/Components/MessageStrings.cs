@@ -11,8 +11,12 @@ namespace ConnectedCommunity.Components
 {
     public static class MessageStrings
     {
-        public const string SchoolNameRequired = "SchoolNameRequired";
-        public const string SchoolIdRequired = "SchoolIdRequired";
+        public const string CommunitySchoolNameRequired = "CommunitySchoolNameRequired";
+        public const string CommunitySchoolIdRequired = "CommunitySchoolIdRequired";
+        public const string DuplicateCommunityName = "DuplicateCommunityName";
+        public const string GroupNameRequired = "GroupNameRequired";
+        public const string DuplicateGroupName = "DuplicateGroupName";
+
 
         public static string GetMessage(string key)
         {

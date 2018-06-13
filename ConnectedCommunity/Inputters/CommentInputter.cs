@@ -1,4 +1,5 @@
 ﻿using ConnectedCommunity.Model;
+using ConnectedCommunity.Model.Repositories;
 using ConnectedCommunity.Models.InputModels;
 using System;
 using System.Collections.Generic;
@@ -8,24 +9,26 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Inputters
 {
-    public class CommentInputter:Inputter<CommentInput, Comment>
+    public class CommentInputter:Inputter<CommentInput, Comment, ICommentRepository>
     {
-        public CommentInputter(CommentInput commentInput):base(commentInput)
+        public CommentInputter(ICommentRepository commentRepo, CommentInput commentInput)
+            :base(commentRepo, commentInput)
         {
 
         }
 
-        public CommentInputter(CommentInput commentInput, Comment currentComment) : base(commentInput, currentComment)
+        public CommentInputter(ICommentRepository commentRepo, CommentInput commentInput, Comment currentComment) 
+            :base(commentRepo, commentInput, currentComment)
         {
 
         }
 
-        public override ValidationResult ValidateNew()
+        public override async Task<ValidationResult> ValidateNew()
         {
             return ValidationResult.Success;
         }
 
-        public override ValidationResult ValidateUpdate()
+        public override async Task<ValidationResult> ValidateUpdate()
         {
             return ValidationResult.Success;
         }

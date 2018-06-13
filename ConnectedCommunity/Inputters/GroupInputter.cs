@@ -1,4 +1,6 @@
-﻿using ConnectedCommunity.Model;
+﻿using ConnectedCommunity.Components;
+using ConnectedCommunity.Model;
+using ConnectedCommunity.Model.Repositories;
 using ConnectedCommunity.Models.InputModels;
 using System;
 using System.Collections.Generic;
@@ -8,25 +10,65 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Inputters
 {
-    public class GroupInputter:Inputter<GroupInput, Group>
+    public class GroupInputter:Inputter<GroupInput, Group, IGroupRepository>
     {
-        public GroupInputter(GroupInput groupInput):base(groupInput)
+        public GroupInputter(IGroupRepository groupRepo, GroupInput groupInput)
+            :base(groupRepo, groupInput)
         {
 
         }
 
-        public GroupInputter(GroupInput groupInput, Group currentGroup) : base(groupInput, currentGroup)
+        public GroupInputter(IGroupRepository groupRepo, GroupInput groupInput, Group currentGroup) 
+            :base(groupRepo, groupInput, currentGroup)
         {
 
         }
 
-        public override ValidationResult ValidateNew()
+        public override async Task<ValidationResult> ValidateNew()
         {
+            if (string.IsNullOrEmpty(input.Name))
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupNameRequired));
+            }
+
+            var duplicateNames = await repo.GetAsync(c => c.Name == input.Name);
+            if (duplicateNames.Any())
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateGroupName));
+            }
+
+            processedInput = new Group
+            {
+                Name=input.Name,
+                CommunityId=input.CommunityId,
+                Description=input.Description,
+                Membership=input.Membership==null?Membership.Open:input.Membership.Value
+            };
             return ValidationResult.Success;
         }
 
-        public override ValidationResult ValidateUpdate()
+        public override async Task<ValidationResult> ValidateUpdate()
         {
+            if (!string.IsNullOrEmpty(input.Name))
+            {
+                var duplicateNames = await repo.GetAsync(c => (c.Name == input.Name) && (c.Id != current.Id));
+                if (duplicateNames.Any())
+                {
+                    return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+                }
+                current.Name = input.Name;
+            }
+            if (!string.IsNullOrEmpty(input.Description))
+            {
+                current.Description = input.Description;
+            }
+
+            if (input.Membership != null)
+            {
+                current.Membership = input.Membership.Value;
+            }
+
+            processedInput = current;
             return ValidationResult.Success;
         }
 

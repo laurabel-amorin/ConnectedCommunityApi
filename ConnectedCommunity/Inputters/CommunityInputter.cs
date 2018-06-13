@@ -10,29 +10,38 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Inputters
 {
-    public class CommunityInputter:Inputter<CommunityInput, Community>
+    public class CommunityInputter:Inputter<CommunityInput, Community, ICommunityRepository>
     {
-        public CommunityInputter(CommunityInput communityInput):base(communityInput)
+        public CommunityInputter(ICommunityRepository communityRepo, CommunityInput communityInput)
+            :base(communityRepo, communityInput)
         {
 
         }
 
-        public CommunityInputter(CommunityInput communityInput, Community currentCommunity) : base(communityInput, currentCommunity)
+        public CommunityInputter(ICommunityRepository communityRepo, CommunityInput communityInput, Community currentCommunity)
+            :base(communityRepo, communityInput, currentCommunity)
         {
 
         }
 
-        public override ValidationResult ValidateNew()
+        public override async Task<ValidationResult> ValidateNew()
         {
             if (string.IsNullOrEmpty(input.SchoolName))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.SchoolNameRequired));
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunitySchoolNameRequired));
             }
 
             if (input.SchoolId==0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.SchoolIdRequired));
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunitySchoolIdRequired));
             }
+
+            var duplicateNames = await repo.GetAsync(c => c.Name == input.Name);
+            if (duplicateNames.Any())
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+            }
+
             processedInput = new Community
             {
                 SchoolId = input.SchoolId,
@@ -42,16 +51,22 @@ namespace ConnectedCommunity.Inputters
             return ValidationResult.Success;
         }
 
-        public override ValidationResult ValidateUpdate()
+        public override async Task<ValidationResult> ValidateUpdate()
         {
             if (!string.IsNullOrEmpty(input.Name))
             {
+                var duplicateNames = await repo.GetAsync(c => (c.Name == input.Name)&&(c.Id!=current.Id));
+                if (duplicateNames.Any())
+                {
+                    return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+                }
                 current.Name = input.Name;
             }
             if (!string.IsNullOrEmpty(input.SchoolName))
             {
                 current.SchoolName = input.SchoolName;
             }
+
             processedInput = current;
             return ValidationResult.Success;
         }

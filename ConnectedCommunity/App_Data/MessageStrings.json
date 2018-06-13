@@ -1,4 +1,9 @@
 ﻿{
-  "SchoolNameRequired": "Please provide a school name",
-   "SchoolIdRequired": "Please provide a school id"
+  "CommunitySchoolNameRequired": "Please provide a school name for this community",
+  "DuplicateCommunityName": "A community with this name already exists",
+  "CommunitySchoolIdRequired": "Please provide a school id for this community",
+  "GroupNameRequired": "Please provide a group name",
+  "DuplicateGroupName": "A group with this name already exists",
+  "GroupCommunityIdRequired": "Please provide a community Id for this group"
+
 }
