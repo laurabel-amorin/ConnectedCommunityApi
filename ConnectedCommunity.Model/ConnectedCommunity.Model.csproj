@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netcoreapp2.1</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Migrations\20180611122625_Initial.cs" />
+    <Compile Remove="Migrations\20180612104624_ForumModels.cs" />
+    <Compile Remove="Migrations\20180612112959_ForumModels.cs" />
+    <Compile Remove="Migrations\20180613054740_ForumModels.cs" />
+    <Compile Remove="Migrations\20180613054817_ForumModels.cs" />
+    <Compile Remove="Migrations\20180613055138_CommunityName.cs" />
+    <Compile Remove="Migrations\20180613061323_PostMedia.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="2.1.0" />
+    <PackageReference Include="Newtonsoft.Json" Version="11.0.2" />
+    <PackageReference Include="Npgsql.EntityFrameworkCore.PostgreSQL" Version="2.1.0" />
+  </ItemGroup>
+
+</Project>
