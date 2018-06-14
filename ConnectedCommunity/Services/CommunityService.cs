@@ -12,10 +12,12 @@ namespace ConnectedCommunity.Services
     public class CommunityService
     {
         private readonly ICommunityRepository communityRepo;
+        private readonly CommunityVerifier communityVerifier;
 
         public CommunityService(ICommunityRepository communityRepo)
         {
             this.communityRepo = communityRepo;
+            communityVerifier = new CommunityVerifier(communityRepo);
         }
     }
 

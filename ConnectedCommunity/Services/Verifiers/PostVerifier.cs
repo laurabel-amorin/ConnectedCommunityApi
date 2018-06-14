@@ -9,40 +9,39 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public abstract class PostDependentService:GroupMemberDependentService
+    public class PostVerifier
     {
-        protected readonly IPostRepository postRepo;
-        protected Post post;
+        private readonly IPostRepository postRepo;
+        public Post Post;
 
-        public PostDependentService(IPostRepository postRepo, IGroupRepository groupRepo,
-            IMemberRepository memberRepo, IGroupMemberRepository groupMemberRepo) : base(groupRepo, memberRepo, groupMemberRepo)
+        public PostVerifier(IPostRepository postRepo)
         {
             this.postRepo = postRepo;
         }
 
-        protected async Task<ValidationResult> ValidatePost(int postId)
+        public async Task<ValidationResult> VerifyPost(int postId)
         {
-            var post = await postRepo.FindAsync(postId);
-            if (post == null)
+            Post = await postRepo.FindAsync(postId);
+            if (Post == null)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.PostDoesNotExist));
             }
             return ValidationResult.Success;
         }
 
-        protected async Task<ValidationResult> ValidateActivePost(int postId)
+        public async Task<ValidationResult> VerifyActivePost(int postId)
         {
-            var validatePostResult = await ValidatePost(postId);
+            var validatePostResult = await VerifyPost(postId);
             if (validatePostResult != ValidationResult.Success)
             {
                 return validatePostResult;
             }
-            if (post.DateArchived!=null)
+            if (Post.DateArchived!=null)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.PostArchived));
             }
             return ValidationResult.Success;
         }
-
+        
     }
 }

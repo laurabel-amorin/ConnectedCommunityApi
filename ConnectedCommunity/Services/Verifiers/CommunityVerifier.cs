@@ -9,34 +9,34 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public abstract class CommunityDependentService
+    public class CommunityVerifier
     {
-        protected readonly ICommunityRepository communityRepo;
-        protected Community community;
+        private readonly ICommunityRepository communityRepo;
+        public Community Community;
 
-        public CommunityDependentService(ICommunityRepository communityRepo)
+        public CommunityVerifier(ICommunityRepository communityRepo)
         {
             this.communityRepo = communityRepo;
         }
 
-        protected async Task<ValidationResult> ValidateCommunity(int communityId)
+        public async Task<ValidationResult> VerifyCommunity(int communityId)
         {
-            community = await communityRepo.FindAsync(communityId);
-            if (community == null)
+            Community = await communityRepo.FindAsync(communityId);
+            if (Community == null)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunityDoesNotExist));
             }
             return ValidationResult.Success;
         }
 
-        protected async Task<ValidationResult> ValidateActiveCommunity(int communityId)
+        public async Task<ValidationResult> VerifyActiveCommunity(int communityId)
         {
-            var validateCommunityResult = await ValidateCommunity(communityId);
+            var validateCommunityResult = await VerifyCommunity(communityId);
             if (validateCommunityResult != ValidationResult.Success)
             {
                 return validateCommunityResult;
             }
-            if (!community.Active)
+            if (!Community.Active)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunityInactive));
             }

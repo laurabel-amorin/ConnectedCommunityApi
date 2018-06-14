@@ -9,13 +9,22 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class GroupService:CommunityDependentService
+    public class GroupService
     {
         private readonly IGroupRepository groupRepo;
+        private readonly CommunityVerifier communityVerifier;
+        private readonly GroupVerifier groupVerifier;
+        private readonly MemberVerifier memberVerifier;
+        private readonly GroupMemberVerifier groupMemberVerifier;
 
-        public GroupService(ICommunityRepository communityRepo, IGroupRepository groupRepo) : base(communityRepo)
+        public GroupService(ICommunityRepository communityRepo, IGroupRepository groupRepo, IMemberRepository memberRepo,
+            IGroupMemberRepository groupMemberRepo)
         {
             this.groupRepo = groupRepo;
+            communityVerifier = new CommunityVerifier(communityRepo);
+            groupVerifier = new GroupVerifier(groupRepo);
+            memberVerifier = new MemberVerifier(memberRepo);
+            groupMemberVerifier = new GroupMemberVerifier(groupMemberRepo);
         }
     }
 

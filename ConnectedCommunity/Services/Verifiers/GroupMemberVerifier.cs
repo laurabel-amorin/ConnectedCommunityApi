@@ -9,34 +9,33 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public abstract class GroupMemberDependentService:MemberAndGroupDependentService
+    public class GroupMemberVerifier
     {
         private readonly IGroupMemberRepository groupMemberRepo;
-        protected GroupMember groupMember;
+        public GroupMember GroupMember;
 
-        public GroupMemberDependentService(IGroupRepository groupRepo, IMemberRepository memberRepo,
-            IGroupMemberRepository groupMemberRepo):base(groupRepo, memberRepo)
+        public GroupMemberVerifier(IGroupMemberRepository groupMemberRepo)
         {
             this.groupMemberRepo = groupMemberRepo;
         }
 
-        protected async Task<ValidationResult> ValidateGroupMember(int groupMemberId)
+        protected async Task<ValidationResult> VerifyGroupMember(int groupMemberId)
         {
-            groupMember = await groupMemberRepo.FindAsync(groupMemberId);
-            if (groupMember == null)
+            GroupMember = await groupMemberRepo.FindAsync(groupMemberId);
+            if (GroupMember == null)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberDoesNotExist));
             }
             return ValidationResult.Success;
         }
 
-        protected async Task<ValidationResult> ValidateGroupMember(int groupId, int memberId)
+        protected async Task<ValidationResult> VerifyGroupMember(int groupId, int memberId)
         {
             var groupMembers = await groupMemberRepo.GetAsync(gm=>(gm.GroupId==groupId)&&(gm.MemberId==memberId));
             if (groupMembers.Any())
             {
-                groupMember = groupMembers.First();
-                if (groupMember != null)
+                GroupMember = groupMembers.First();
+                if (GroupMember != null)
                 {
                     return ValidationResult.Success;                   
                 }
@@ -44,28 +43,28 @@ namespace ConnectedCommunity.Services
             return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupDoesNotExist));
         }
 
-        protected async Task<ValidationResult> ValidateActiveGroupMember(int groupMemberId)
+        protected async Task<ValidationResult> VerifyActiveGroupMember(int groupMemberId)
         {
-            var validateGroupMemberResult = await ValidateGroupMember(groupMemberId);
+            var validateGroupMemberResult = await VerifyGroupMember(groupMemberId);
             if (validateGroupMemberResult != ValidationResult.Success)
             {
                 return validateGroupMemberResult;
             }
-            if (!groupMember.Active)
+            if (!GroupMember.Active)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberInactive));
             }
             return ValidationResult.Success;
         }
 
-        protected async Task<ValidationResult> ValidateActiveGroupMember(int groupId, int memberId)
+        protected async Task<ValidationResult> VerifyActiveGroupMember(int groupId, int memberId)
         {
-            var validateGroupMemberResult = await ValidateGroupMember(groupId, memberId);
+            var validateGroupMemberResult = await VerifyGroupMember(groupId, memberId);
             if (validateGroupMemberResult != ValidationResult.Success)
             {
                 return validateGroupMemberResult;
             }
-            if (!groupMember.Active)
+            if (!GroupMember.Active)
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberInactive));
             }

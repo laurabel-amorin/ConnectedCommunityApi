@@ -11,14 +11,23 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class CommentService:PostDependentService
+    public class CommentService
     {
         private readonly ICommentRepository commentRepo;
+        private readonly CommentVerifier commentVerifier;
+        private readonly PostVerifier postVerifier;
+        private readonly GroupMemberVerifier groupMemberVerifier;
+        private readonly MemberVerifier MemberVerifier;
 
-        public CommentService(ICommentRepository commentRepo, IPostRepository postRepo, IGroupRepository groupRepo, 
-            IGroupMemberRepository groupMemberRepo, IMemberRepository memberRepo):base(postRepo, groupRepo, memberRepo, groupMemberRepo)
+
+        public CommentService(ICommentRepository commentRepo, IPostRepository postRepo, IGroupMemberRepository groupMemberRepo, 
+            IMemberRepository memberRepo)
         {
             this.commentRepo = commentRepo;
+            commentVerifier = new CommentVerifier(commentRepo);
+            postVerifier = new PostVerifier(postRepo);
+            groupMemberVerifier = new GroupMemberVerifier(groupMemberRepo);
+            MemberVerifier = new MemberVerifier(memberRepo);
         }
 
     }

@@ -12,14 +12,16 @@ namespace ConnectedCommunity.Services
     public class GroupMemberService
     {
         private readonly IGroupMemberRepository groupMemberRepo;
-        private readonly IGroupRepository groupRepo;
-        private readonly IMemberRepository memberRepo;
+        private readonly GroupMemberVerifier groupMemberVerifier;
+        private readonly GroupVerifier groupVerifier;
+        private readonly MemberVerifier memberVerifier;
 
         public GroupMemberService(IGroupMemberRepository groupMemberRepo, IGroupRepository groupRepo,IMemberRepository memberRepo)
         {
             this.groupMemberRepo = groupMemberRepo;
-            this.groupRepo = groupRepo;
-            this.memberRepo = memberRepo;
+            groupVerifier = new GroupVerifier(groupRepo);
+            memberVerifier = new MemberVerifier(memberRepo);
+            groupMemberVerifier = new GroupMemberVerifier(groupMemberRepo);
         }
     }
 
