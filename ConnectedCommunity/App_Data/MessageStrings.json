@@ -13,13 +13,19 @@
 
   "MemberDoesNotExist": "The requested community member does not exist",
   "MemberInactive": "The requested member is currently inactive",
+  "InvalidMemberUserId": "A member requires a valid user Id",
 
   "GroupMemberDoesNotExist": "The requested group member does not exist",
   "GroupMemberInactive": "The requested group member is currently inactive",
+  "InvalidMemberId": "Invalid member Id",
+  "InvalidGroupId": "Invalid group Id",
+  "CannotUpdateGroupMember": "Cannot update group member",
 
   "PostDoesNotExist": "The requested community member does not exist",
   "PostArchived": "The requested post has been archived",
+  "PostContentEmpty": "The content of this post is empty",
 
-  "CommentDoesNotExist": "The requested comment does not exist"
+  "CommentDoesNotExist": "The requested comment does not exist",
+  "CommentContentEmpty": "The content of this post is empty"
 
 }

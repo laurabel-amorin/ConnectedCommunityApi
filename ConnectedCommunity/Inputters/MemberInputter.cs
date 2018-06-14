@@ -1,6 +1,8 @@
-﻿using ConnectedCommunity.Model;
+﻿using ConnectedCommunity.Components;
+using ConnectedCommunity.Model;
 using ConnectedCommunity.Model.Repositories;
 using ConnectedCommunity.Models.InputModels;
+using ConnectedCommunity.Services;
 using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
@@ -22,12 +24,33 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public override async Task<ValidationResult> ValidateNew()
+        public override ValidationResult ValidateNew()
         {
+            string alias = input.Alias;
+            
+            if (!UserService.VerifyUser(input.UserId))
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberUserId));
+            }
+
+            if (string.IsNullOrEmpty(alias))
+            {
+                alias = UserService.GetDefaultAlias();
+            }
+
+            processedInput = new Member
+            {
+                Alias=alias,
+                UserId=input.UserId,
+                CommunityId=input.CommunityId,
+                Admin=input.Admin,
+                DateCreated=DateTime.UtcNow
+            };
+
             return ValidationResult.Success;
         }
 
-        public override async Task<ValidationResult> ValidateUpdate()
+        public override ValidationResult ValidateUpdate()
         {
             return ValidationResult.Success;
         }

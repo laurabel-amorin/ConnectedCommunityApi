@@ -24,14 +24,20 @@ namespace ConnectedCommunity.Components
 
         public const string MemberDoesNotExist = "MemberDoesNotExist";
         public const string MemberInactive = "MemberInactive";
+        public const string InvalidMemberUserId = "InvalidMemberUserId";
 
         public const string GroupMemberDoesNotExist = "GroupMemberDoesNotExist";
         public const string GroupMemberInactive = "GroupMemberInactive";
+        public const string InvalidMemberId = "InvalidMemberId";
+        public const string InvalidGroupId = "InvalidGroupId";
+        public const string CannotUpdateGroupMember = "CannotUpdateGroupMember";
 
         public const string PostDoesNotExist = "PostDoesNotExist";
         public const string PostArchived = "PostArchived";
+        public const string PostContentEmpty = "PostContentEmpty";
 
         public const string CommentDoesNotExist = "CommentDoesNotExist";
+        public const string CommentContentEmpty = "CommentContentEmpty";
 
 
         public static string GetMessage(string key)

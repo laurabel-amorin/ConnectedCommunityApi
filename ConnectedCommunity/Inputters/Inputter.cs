@@ -29,13 +29,13 @@ namespace ConnectedCommunity.Models.InputModels
             this.current = current;
         }
 
-        public async Task<ValidationResult> Validate()
+        public ValidationResult Validate()
         {
             if (current==null)
             {
-                return await ValidateNew();
+                return ValidateNew();
             }
-            return await ValidateUpdate();
+            return ValidateUpdate();
         }
 
         public T GetProcessedInput()
@@ -43,8 +43,8 @@ namespace ConnectedCommunity.Models.InputModels
             return processedInput;
         }
 
-        public abstract Task<ValidationResult> ValidateNew();
-        public abstract Task<ValidationResult> ValidateUpdate();
+        public abstract ValidationResult ValidateNew();
+        public abstract ValidationResult ValidateUpdate();
         
     }
 }

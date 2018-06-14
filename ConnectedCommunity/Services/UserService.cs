@@ -5,14 +5,14 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class UsersService
+    public static class UserService
     {
-        public bool VerifyUser(int userId)
+        public static bool VerifyUser(int userId)
         {
             return true;
         }
 
-        public string GetDefaultAlias()
+        public static string GetDefaultAlias()
         {
             return Guid.NewGuid().ToString("N");
         }

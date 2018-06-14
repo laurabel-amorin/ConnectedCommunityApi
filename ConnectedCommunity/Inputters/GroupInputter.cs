@@ -24,14 +24,14 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public override async Task<ValidationResult> ValidateNew()
+        public override ValidationResult ValidateNew()
         {
             if (string.IsNullOrEmpty(input.Name))
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupNameRequired));
             }
 
-            var duplicateNames = await repo.GetAsync(c => c.Name == input.Name);
+            var duplicateNames = repo.Get(c => c.Name == input.Name);
             if (duplicateNames.Any())
             {
                 return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateGroupName));
@@ -48,11 +48,11 @@ namespace ConnectedCommunity.Inputters
             return ValidationResult.Success;
         }
 
-        public override async Task<ValidationResult> ValidateUpdate()
+        public override ValidationResult ValidateUpdate()
         {
             if (!string.IsNullOrEmpty(input.Name))
             {
-                var duplicateNames = await repo.GetAsync(c => (c.Name == input.Name) && (c.Id != current.Id));
+                var duplicateNames = repo.Get(c => (c.Name == input.Name) && (c.Id != current.Id));
                 if (duplicateNames.Any())
                 {
                     return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));

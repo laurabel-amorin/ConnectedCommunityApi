@@ -1,4 +1,5 @@
-﻿using ConnectedCommunity.Model;
+﻿using ConnectedCommunity.Components;
+using ConnectedCommunity.Model;
 using ConnectedCommunity.Model.Repositories;
 using ConnectedCommunity.Models.InputModels;
 using System;
@@ -24,14 +25,28 @@ namespace ConnectedCommunity.Inputters
 
         }
 
-        public override async Task<ValidationResult> ValidateNew()
+        public override ValidationResult ValidateNew()
         {
+            if (input.MemberId == 0)
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberId));
+            }
+
+            if (input.GroupId == 0)
+            {
+                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
+            }
+            processedInput = new GroupMember
+            {
+
+                DateCreated =DateTime.UtcNow
+            };
             return ValidationResult.Success;
         }
 
-        public override async Task<ValidationResult> ValidateUpdate()
+        public override ValidationResult ValidateUpdate()
         {
-            return ValidationResult.Success;
+            return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
         }
 
     }
