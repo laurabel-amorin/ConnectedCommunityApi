@@ -28,17 +28,17 @@ namespace ConnectedCommunity.Inputters
         {
             if (input.GroupId == 0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidGroupId));
             }
 
             if (input.MemberId == 0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidMemberId));
             }
 
             if (string.IsNullOrEmpty(input.Content))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommentContentEmpty));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommentContentEmpty));
             }
 
             return ValidationResult.Success;

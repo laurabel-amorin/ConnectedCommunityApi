@@ -27,15 +27,21 @@ namespace ConnectedCommunity.Inputters
         public override ValidationResult ValidateNew()
         {
             string alias = input.Alias;
-            
+
             if (!UserService.VerifyUser(input.UserId))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberUserId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidMemberUserId));
             }
 
             if (string.IsNullOrEmpty(alias))
             {
                 alias = UserService.GetDefaultAlias();
+            }
+
+            var duplicateNames = repo.Get(m => m.Alias == input.Alias);
+            if (duplicateNames.Any())
+            {
+                return new ValidationResult(MessageStrings.Get(MessageStrings.DuplicateGroupName));
             }
 
             processedInput = new Member

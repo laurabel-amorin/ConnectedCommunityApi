@@ -59,7 +59,7 @@ namespace ConnectedCommunity.Models.IndexParamModels
 
     public abstract class StandardRepoIndexParams<T> : IndexParams<T>
     {
-        public abstract IQueryable<T> ApplyOptions(IQueryable<T> data);
+        public abstract IQueryable<T> ApplyParams(IQueryable<T> data);
 
         protected IQueryable<T> ApplySearchOptions(IQueryable<T> data)
         {

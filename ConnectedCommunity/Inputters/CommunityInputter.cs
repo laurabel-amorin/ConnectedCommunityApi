@@ -28,18 +28,18 @@ namespace ConnectedCommunity.Inputters
         {
             if (string.IsNullOrEmpty(input.SchoolName))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunitySchoolNameRequired));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommunitySchoolNameRequired));
             }
 
             if (input.SchoolId==0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunitySchoolIdRequired));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommunitySchoolIdRequired));
             }
 
             var duplicateNames = repo.Get(c => c.Name == input.Name);
             if (duplicateNames.Any())
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.DuplicateCommunityName));
             }
 
             processedInput = new Community
@@ -59,7 +59,7 @@ namespace ConnectedCommunity.Inputters
                 var duplicateNames = repo.Get(c => (c.Name == input.Name)&&(c.Id!=current.Id));
                 if (duplicateNames.Any())
                 {
-                    return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+                    return new ValidationResult(MessageStrings.Get(MessageStrings.DuplicateCommunityName));
                 }
                 current.Name = input.Name;
             }

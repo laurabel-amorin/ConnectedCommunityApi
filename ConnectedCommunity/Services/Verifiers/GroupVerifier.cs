@@ -24,7 +24,7 @@ namespace ConnectedCommunity.Services
             Group = await groupRepo.FindAsync(groupId);
             if (Group == null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupDoesNotExist));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.GroupDoesNotExist));
             }
             return ValidationResult.Success;
         }
@@ -38,7 +38,7 @@ namespace ConnectedCommunity.Services
             }
             if (Group.Membership==Membership.Default)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DefaultGroupMembership));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.DefaultGroupMembership));
             }
             return ValidationResult.Success;
         }

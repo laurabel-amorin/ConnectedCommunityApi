@@ -28,13 +28,13 @@ namespace ConnectedCommunity.Inputters
         {
             if (string.IsNullOrEmpty(input.Name))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupNameRequired));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.GroupNameRequired));
             }
 
             var duplicateNames = repo.Get(c => c.Name == input.Name);
             if (duplicateNames.Any())
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateGroupName));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.DuplicateGroupName));
             }
 
             processedInput = new Group
@@ -55,7 +55,7 @@ namespace ConnectedCommunity.Inputters
                 var duplicateNames = repo.Get(c => (c.Name == input.Name) && (c.Id != current.Id));
                 if (duplicateNames.Any())
                 {
-                    return new ValidationResult(MessageStrings.GetMessage(MessageStrings.DuplicateCommunityName));
+                    return new ValidationResult(MessageStrings.Get(MessageStrings.DuplicateCommunityName));
                 }
                 current.Name = input.Name;
             }

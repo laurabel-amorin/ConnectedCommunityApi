@@ -11,7 +11,7 @@ namespace ConnectedCommunity.Models.IndexParamModels
         public Membership? membership { get; set; }
         public bool archived { get; set; } = false;
 
-        public override IQueryable<Group> ApplyOptions(IQueryable<Group> data)
+        public override IQueryable<Group> ApplyParams(IQueryable<Group> data)
         {
             data = ApplySearchOptions(data);
             data = ApplyStatusTags(data);

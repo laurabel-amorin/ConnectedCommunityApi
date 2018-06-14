@@ -26,13 +26,25 @@ namespace ConnectedCommunity.Inputters
 
         public override ValidationResult ValidateNew()
         {
-            
+            if (input.OwnerId==0)
+            {
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidCommentId));
+            }
+
+            if (!string.IsNullOrEmpty(input.Media))
+            {
+                processedInput = new CommentMedia
+                {
+                    CommentId=input.OwnerId,
+                    Media = input.Media
+                };
+            }
             return ValidationResult.Success;
         }
 
         public override ValidationResult ValidateUpdate()
         {
-            return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CannotUpdateMedia));
+            return new ValidationResult(MessageStrings.Get(MessageStrings.CannotUpdateMedia));
         }
 
     }

@@ -24,7 +24,7 @@ namespace ConnectedCommunity.Services
             var comment = await commentRepo.FindAsync(commentId);
             if (comment == null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommentDoesNotExist));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommentDoesNotExist));
             }
             return ValidationResult.Success;
         }

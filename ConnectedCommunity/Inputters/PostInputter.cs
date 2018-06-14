@@ -29,17 +29,17 @@ namespace ConnectedCommunity.Inputters
         {
             if (input.GroupId==0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidGroupId));
             }
 
             if (input.MemberId == 0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidMemberId));
             }
 
             if (string.IsNullOrEmpty(input.Content))
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.PostContentEmpty));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.PostContentEmpty));
             }
 
             string heading = input.Heading;
@@ -62,6 +62,19 @@ namespace ConnectedCommunity.Inputters
 
         public override ValidationResult ValidateUpdate()
         {
+            if (!string.IsNullOrEmpty(input.Content))
+            {
+                current.Content = input.Content;
+                current.DateModified = DateTime.UtcNow;
+            }
+
+            if (!string.IsNullOrEmpty(input.Heading))
+            {
+                current.Heading = input.Heading;
+                current.DateModified = DateTime.UtcNow;
+            }
+
+            processedInput = current;
             return ValidationResult.Success;
         }
 

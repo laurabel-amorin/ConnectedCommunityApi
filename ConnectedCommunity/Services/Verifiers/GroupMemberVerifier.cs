@@ -24,7 +24,7 @@ namespace ConnectedCommunity.Services
             GroupMember = await groupMemberRepo.FindAsync(groupMemberId);
             if (GroupMember == null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberDoesNotExist));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.GroupMemberDoesNotExist));
             }
             return ValidationResult.Success;
         }
@@ -40,7 +40,7 @@ namespace ConnectedCommunity.Services
                     return ValidationResult.Success;                   
                 }
             }
-            return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupDoesNotExist));
+            return new ValidationResult(MessageStrings.Get(MessageStrings.GroupDoesNotExist));
         }
 
         protected async Task<ValidationResult> VerifyActiveGroupMember(int groupMemberId)
@@ -52,7 +52,7 @@ namespace ConnectedCommunity.Services
             }
             if (!GroupMember.Active)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberInactive));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.GroupMemberInactive));
             }
             return ValidationResult.Success;
         }
@@ -66,7 +66,7 @@ namespace ConnectedCommunity.Services
             }
             if (!GroupMember.Active)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.GroupMemberInactive));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.GroupMemberInactive));
             }
             return ValidationResult.Success;
         }

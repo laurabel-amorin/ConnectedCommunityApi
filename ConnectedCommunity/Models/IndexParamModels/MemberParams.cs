@@ -11,7 +11,7 @@ namespace ConnectedCommunity.Models.IndexParamModels
         public bool active { get; set; } = true;
         public bool? admin { get; set; }
 
-        public override IQueryable<Member> ApplyOptions(IQueryable<Member> data)
+        public override IQueryable<Member> ApplyParams(IQueryable<Member> data)
         {
             data = ApplySearchOptions(data);
             data = ApplyStatusTags(data);

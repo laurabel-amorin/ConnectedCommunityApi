@@ -24,7 +24,7 @@ namespace ConnectedCommunity.Services
             Community = await communityRepo.FindAsync(communityId);
             if (Community == null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunityDoesNotExist));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommunityDoesNotExist));
             }
             return ValidationResult.Success;
         }
@@ -38,7 +38,7 @@ namespace ConnectedCommunity.Services
             }
             if (!Community.Active)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.CommunityInactive));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.CommunityInactive));
             }
             return ValidationResult.Success;
         }

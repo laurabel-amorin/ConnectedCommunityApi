@@ -11,7 +11,7 @@ namespace ConnectedCommunity.Models.IndexParamModels
         public bool? Private { get; set; } = true;
         public bool? hidden { get; set; }
 
-        public override IQueryable<Comment> ApplyOptions(IQueryable<Comment> data)
+        public override IQueryable<Comment> ApplyParams(IQueryable<Comment> data)
         {
             data = ApplySearchOptions(data);
             data = ApplyStatusTags(data);

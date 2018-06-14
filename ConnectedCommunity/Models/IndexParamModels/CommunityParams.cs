@@ -10,7 +10,7 @@ namespace ConnectedCommunity.Models.IndexParamModels
     {
         public bool active { get; set; } = true;
 
-        public override IQueryable<Community> ApplyOptions(IQueryable<Community> data)
+        public override IQueryable<Community> ApplyParams(IQueryable<Community> data)
         {
             data = ApplySearchOptions(data);
             data = ApplyStatusTags(data);

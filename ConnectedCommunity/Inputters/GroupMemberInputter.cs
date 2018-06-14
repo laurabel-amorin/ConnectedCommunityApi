@@ -29,12 +29,12 @@ namespace ConnectedCommunity.Inputters
         {
             if (input.MemberId == 0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidMemberId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidMemberId));
             }
 
             if (input.GroupId == 0)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidGroupId));
             }
             processedInput = new GroupMember
             {
@@ -46,7 +46,7 @@ namespace ConnectedCommunity.Inputters
 
         public override ValidationResult ValidateUpdate()
         {
-            return new ValidationResult(MessageStrings.GetMessage(MessageStrings.InvalidGroupId));
+            return new ValidationResult(MessageStrings.Get(MessageStrings.InvalidGroupId));
         }
 
     }

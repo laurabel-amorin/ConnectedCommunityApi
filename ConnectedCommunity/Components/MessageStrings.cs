@@ -36,12 +36,13 @@ namespace ConnectedCommunity.Components
         public const string PostArchived = "PostArchived";
         public const string PostContentEmpty = "PostContentEmpty";
         public const string CannotUpdateMedia = "CannotUpdateMedia";
+        public const string InvalidPostId = "InvalidPostId";
 
         public const string CommentDoesNotExist = "CommentDoesNotExist";
         public const string CommentContentEmpty = "CommentContentEmpty";
+        public const string InvalidCommentId = "InvalidCommentId";
 
-
-        public static string GetMessage(string key)
+        public static string Get(string key)
         {
             string message = string.Empty;
 

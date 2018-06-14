@@ -10,8 +10,10 @@ namespace ConnectedCommunity.Model.Repositories
 {
     public interface IRepository<T>:IDisposable
     {
-        List<T> GetAll();
-        List<T> Get(Expression<Func<T, bool>> predicate);
+        IQueryable<T> GetAll();
+        IQueryable<T> Get(Expression<Func<T, bool>> predicate);
+        List<T> GetAllList();
+        List<T> GetList(Expression<Func<T, bool>> predicate);
         T Find(int id);
         void Create(T entity);
         void Delete(T entity);
@@ -39,12 +41,22 @@ namespace ConnectedCommunity.Model.Repositories
             return context.Set<T>().Find(id);
         }
 
-        public virtual List<T> GetAll()
+        public virtual IQueryable<T> GetAll()
+        {
+            return context.Set<T>();
+        }
+
+        public IQueryable<T> Get(Expression<Func<T, bool>> predicate)
+        {
+            return context.Set<T>().Where(predicate);
+        }
+
+        public virtual List<T> GetAllList()
         {
             return context.Set<T>().ToList();
         }
 
-        public List<T> Get(Expression<Func<T, bool>> predicate)
+        public virtual List<T> GetList(Expression<Func<T, bool>> predicate)
         {
             return context.Set<T>().Where(predicate).ToList();
         }

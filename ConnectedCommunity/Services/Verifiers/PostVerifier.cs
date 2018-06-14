@@ -24,7 +24,7 @@ namespace ConnectedCommunity.Services
             Post = await postRepo.FindAsync(postId);
             if (Post == null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.PostDoesNotExist));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.PostDoesNotExist));
             }
             return ValidationResult.Success;
         }
@@ -38,7 +38,7 @@ namespace ConnectedCommunity.Services
             }
             if (Post.DateArchived!=null)
             {
-                return new ValidationResult(MessageStrings.GetMessage(MessageStrings.PostArchived));
+                return new ValidationResult(MessageStrings.Get(MessageStrings.PostArchived));
             }
             return ValidationResult.Success;
         }
