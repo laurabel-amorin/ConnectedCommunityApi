@@ -12,10 +12,14 @@ namespace ConnectedCommunity.Services
     public class GroupMemberService
     {
         private readonly IGroupMemberRepository groupMemberRepo;
+        private readonly IGroupRepository groupRepo;
+        private readonly IMemberRepository memberRepo;
 
-        public GroupMemberService(IGroupMemberRepository groupMemberRepo)
+        public GroupMemberService(IGroupMemberRepository groupMemberRepo, IGroupRepository groupRepo,IMemberRepository memberRepo)
         {
             this.groupMemberRepo = groupMemberRepo;
+            this.groupRepo = groupRepo;
+            this.memberRepo = memberRepo;
         }
     }
 

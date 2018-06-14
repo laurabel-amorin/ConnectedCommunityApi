@@ -2,8 +2,24 @@
   "CommunitySchoolNameRequired": "Please provide a school name for this community",
   "DuplicateCommunityName": "A community with this name already exists",
   "CommunitySchoolIdRequired": "Please provide a school id for this community",
+  "CommunityDoesNotExist": "The requested community does not exist",
+  "CommunityInactive": "The requested community is currently inactive",
+
   "GroupNameRequired": "Please provide a group name",
   "DuplicateGroupName": "A group with this name already exists",
-  "GroupCommunityIdRequired": "Please provide a community Id for this group"
+  "GroupCommunityIdRequired": "Please provide a community Id for this group",
+  "GroupDoesNotExist": "The requested group does not exist",
+  "DefaultGroupMembership": "This action cannot be performed on a default group",
+
+  "MemberDoesNotExist": "The requested community member does not exist",
+  "MemberInactive": "The requested member is currently inactive",
+
+  "GroupMemberDoesNotExist": "The requested group member does not exist",
+  "GroupMemberInactive": "The requested group member is currently inactive",
+
+  "PostDoesNotExist": "The requested community member does not exist",
+  "PostArchived": "The requested post has been archived",
+
+  "CommentDoesNotExist": "The requested comment does not exist"
 
 }

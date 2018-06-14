@@ -14,8 +14,24 @@ namespace ConnectedCommunity.Components
         public const string CommunitySchoolNameRequired = "CommunitySchoolNameRequired";
         public const string CommunitySchoolIdRequired = "CommunitySchoolIdRequired";
         public const string DuplicateCommunityName = "DuplicateCommunityName";
+        public const string CommunityDoesNotExist = "CommunityDoesNotExist";
+        public const string CommunityInactive = "CommunityInactive";
+
         public const string GroupNameRequired = "GroupNameRequired";
         public const string DuplicateGroupName = "DuplicateGroupName";
+        public const string GroupDoesNotExist = "GroupDoesNotExist";
+        public const string DefaultGroupMembership = "DefaultGroupMembership";
+
+        public const string MemberDoesNotExist = "MemberDoesNotExist";
+        public const string MemberInactive = "MemberInactive";
+
+        public const string GroupMemberDoesNotExist = "GroupMemberDoesNotExist";
+        public const string GroupMemberInactive = "GroupMemberInactive";
+
+        public const string PostDoesNotExist = "PostDoesNotExist";
+        public const string PostArchived = "PostArchived";
+
+        public const string CommentDoesNotExist = "CommentDoesNotExist";
 
 
         public static string GetMessage(string key)

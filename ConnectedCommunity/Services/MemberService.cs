@@ -9,11 +9,11 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class MemberService
+    public class MemberService:CommunityDependentService
     {
         private readonly IMemberRepository memberRepo;
 
-        public MemberService(IMemberRepository memberRepo)
+        public MemberService(ICommunityRepository communityRepo, IMemberRepository memberRepo):base(communityRepo)
         {
             this.memberRepo = memberRepo;
         }
