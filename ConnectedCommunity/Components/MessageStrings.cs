@@ -35,6 +35,7 @@ namespace ConnectedCommunity.Components
         public const string PostDoesNotExist = "PostDoesNotExist";
         public const string PostArchived = "PostArchived";
         public const string PostContentEmpty = "PostContentEmpty";
+        public const string CannotUpdateMedia = "CannotUpdateMedia";
 
         public const string CommentDoesNotExist = "CommentDoesNotExist";
         public const string CommentContentEmpty = "CommentContentEmpty";

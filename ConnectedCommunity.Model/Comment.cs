@@ -18,8 +18,6 @@ namespace ConnectedCommunity.Model
         [Searchable]
         public string Content { get; set; }
 
-        public string Media { get; set; }
-
         [Required]
         [Sortable]
         public int PostId { get; set; }
@@ -59,5 +57,7 @@ namespace ConnectedCommunity.Model
 
         [ForeignKey("GroupMemberId")]
         public GroupMember GroupMember { get; set; }
+
+        public List<CommentMedia> Media { get; set; }
     }
 }

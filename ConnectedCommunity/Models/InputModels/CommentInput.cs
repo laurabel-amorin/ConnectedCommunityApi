@@ -13,7 +13,6 @@ namespace ConnectedCommunity.Models.InputModels
         [JsonIgnore]
         public int GroupMemberId { get; set; }
         public string Content { get; set; }
-        public string Media { get; set; }
         public int PostId { get; set; }
         public int ParentId { get; set; }
         public bool Private { get; set; }

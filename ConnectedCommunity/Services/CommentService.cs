@@ -14,16 +14,18 @@ namespace ConnectedCommunity.Services
     public class CommentService
     {
         private readonly ICommentRepository commentRepo;
+        private readonly ICommentMediaRepository commentMediaRepo;
         private readonly CommentVerifier commentVerifier;
         private readonly PostVerifier postVerifier;
         private readonly GroupMemberVerifier groupMemberVerifier;
         private readonly MemberVerifier MemberVerifier;
 
 
-        public CommentService(ICommentRepository commentRepo, IPostRepository postRepo, IGroupMemberRepository groupMemberRepo, 
+        public CommentService(ICommentRepository commentRepo, ICommentMediaRepository commentMediaRepo, IPostRepository postRepo, IGroupMemberRepository groupMemberRepo, 
             IMemberRepository memberRepo)
         {
             this.commentRepo = commentRepo;
+            this.commentMediaRepo = commentMediaRepo;
             commentVerifier = new CommentVerifier(commentRepo);
             postVerifier = new PostVerifier(postRepo);
             groupMemberVerifier = new GroupMemberVerifier(groupMemberRepo);

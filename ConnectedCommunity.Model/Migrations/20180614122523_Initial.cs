@@ -4,29 +4,29 @@ using Npgsql.EntityFrameworkCore.PostgreSQL.Metadata;
 
 namespace ConnectedCommunity.Model.Migrations
 {
-    public partial class ForumModels : Migration
+    public partial class Initial : Migration
     {
         protected override void Up(MigrationBuilder migrationBuilder)
         {
-            migrationBuilder.AddColumn<bool>(
-                name: "Active",
-                table: "Communities",
-                nullable: false,
-                defaultValue: false);
-
-            migrationBuilder.AddColumn<DateTime>(
-                name: "DateCreated",
-                table: "Communities",
-                nullable: false,
-                defaultValue: new DateTime(1, 1, 1, 0, 0, 0, 0, DateTimeKind.Unspecified));
-
-            migrationBuilder.AddColumn<string>(
-                name: "Name",
-                table: "Communities",
-                nullable: true);
+            migrationBuilder.CreateTable(
+                name: "Communities",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    SchoolId = table.Column<int>(nullable: false),
+                    SchoolName = table.Column<string>(nullable: false),
+                    Name = table.Column<string>(nullable: true),
+                    DateCreated = table.Column<DateTime>(nullable: false),
+                    Active = table.Column<bool>(nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_Communities", x => x.Id);
+                });
 
             migrationBuilder.CreateTable(
-                name: "Member",
+                name: "Members",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -40,9 +40,9 @@ namespace ConnectedCommunity.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Member", x => x.Id);
+                    table.PrimaryKey("PK_Members", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Member_Communities_CommunityId",
+                        name: "FK_Members_Communities_CommunityId",
                         column: x => x.CommunityId,
                         principalTable: "Communities",
                         principalColumn: "Id",
@@ -50,7 +50,7 @@ namespace ConnectedCommunity.Model.Migrations
                 });
 
             migrationBuilder.CreateTable(
-                name: "Group",
+                name: "Groups",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -66,23 +66,23 @@ namespace ConnectedCommunity.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Group", x => x.Id);
+                    table.PrimaryKey("PK_Groups", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Group_Communities_CommunityId",
+                        name: "FK_Groups_Communities_CommunityId",
                         column: x => x.CommunityId,
                         principalTable: "Communities",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Group_Member_CreatorId",
+                        name: "FK_Groups_Members_CreatorId",
                         column: x => x.CreatorId,
-                        principalTable: "Member",
+                        principalTable: "Members",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                 });
 
             migrationBuilder.CreateTable(
-                name: "GroupMember",
+                name: "GroupMembers",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
@@ -95,30 +95,29 @@ namespace ConnectedCommunity.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_GroupMember", x => x.Id);
+                    table.PrimaryKey("PK_GroupMembers", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_GroupMember_Group_GroupId",
+                        name: "FK_GroupMembers_Groups_GroupId",
                         column: x => x.GroupId,
-                        principalTable: "Group",
+                        principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_GroupMember_Member_MemberId",
+                        name: "FK_GroupMembers_Members_MemberId",
                         column: x => x.MemberId,
-                        principalTable: "Member",
+                        principalTable: "Members",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Post",
+                name: "Posts",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Heading = table.Column<string>(nullable: false),
                     Content = table.Column<string>(nullable: true),
-                    Media = table.Column<string>(nullable: true),
                     GroupId = table.Column<int>(nullable: false),
                     MemberId = table.Column<int>(nullable: false),
                     GroupMemberId = table.Column<int>(nullable: false),
@@ -128,29 +127,28 @@ namespace ConnectedCommunity.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Post", x => x.Id);
+                    table.PrimaryKey("PK_Posts", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Post_Group_GroupId",
+                        name: "FK_Posts_Groups_GroupId",
                         column: x => x.GroupId,
-                        principalTable: "Group",
+                        principalTable: "Groups",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Post_GroupMember_GroupMemberId",
+                        name: "FK_Posts_GroupMembers_GroupMemberId",
                         column: x => x.GroupMemberId,
-                        principalTable: "GroupMember",
+                        principalTable: "GroupMembers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
-                name: "Comment",
+                name: "Comments",
                 columns: table => new
                 {
                     Id = table.Column<int>(nullable: false)
                         .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
                     Content = table.Column<string>(nullable: false),
-                    Media = table.Column<string>(nullable: true),
                     PostId = table.Column<int>(nullable: false),
                     ParentId = table.Column<int>(nullable: true),
                     MemberId = table.Column<int>(nullable: false),
@@ -164,26 +162,96 @@ namespace ConnectedCommunity.Model.Migrations
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_Comment", x => x.Id);
+                    table.PrimaryKey("PK_Comments", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_Comment_GroupMember_GroupMemberId",
+                        name: "FK_Comments_GroupMembers_GroupMemberId",
                         column: x => x.GroupMemberId,
-                        principalTable: "GroupMember",
+                        principalTable: "GroupMembers",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
-                        name: "FK_Comment_Comment_ParentId",
+                        name: "FK_Comments_Comments_ParentId",
                         column: x => x.ParentId,
-                        principalTable: "Comment",
+                        principalTable: "Comments",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
                     table.ForeignKey(
-                        name: "FK_Comment_Post_PostId",
+                        name: "FK_Comments_Posts_PostId",
                         column: x => x.PostId,
-                        principalTable: "Post",
+                        principalTable: "Posts",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
+
+            migrationBuilder.CreateTable(
+                name: "PostMedia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    PostId = table.Column<int>(nullable: false),
+                    Media = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_PostMedia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_PostMedia_Posts_PostId",
+                        column: x => x.PostId,
+                        principalTable: "Posts",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateTable(
+                name: "CommentMedia",
+                columns: table => new
+                {
+                    Id = table.Column<int>(nullable: false)
+                        .Annotation("Npgsql:ValueGenerationStrategy", NpgsqlValueGenerationStrategy.SerialColumn),
+                    CommentId = table.Column<int>(nullable: false),
+                    Media = table.Column<string>(nullable: true)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_CommentMedia", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_CommentMedia_Comments_CommentId",
+                        column: x => x.CommentId,
+                        principalTable: "Comments",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentMedia_CommentId",
+                table: "CommentMedia",
+                column: "CommentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_CommentMedia_Id",
+                table: "CommentMedia",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_GroupMemberId",
+                table: "Comments",
+                column: "GroupMemberId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_Id",
+                table: "Comments",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_ParentId",
+                table: "Comments",
+                column: "ParentId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Comments_PostId",
+                table: "Comments",
+                column: "PostId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Communities_Id",
@@ -197,149 +265,128 @@ namespace ConnectedCommunity.Model.Migrations
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Comment_GroupMemberId",
-                table: "Comment",
-                column: "GroupMemberId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_Id",
-                table: "Comment",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_ParentId",
-                table: "Comment",
-                column: "ParentId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Comment_PostId",
-                table: "Comment",
-                column: "PostId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Group_CommunityId",
-                table: "Group",
-                column: "CommunityId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Group_CreatorId",
-                table: "Group",
-                column: "CreatorId");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Group_DateArchived",
-                table: "Group",
-                column: "DateArchived");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Group_Id",
-                table: "Group",
-                column: "Id");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Group_Membership",
-                table: "Group",
-                column: "Membership");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_GroupMember_Active",
-                table: "GroupMember",
+                name: "IX_GroupMembers_Active",
+                table: "GroupMembers",
                 column: "Active");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupMember_GroupId",
-                table: "GroupMember",
+                name: "IX_GroupMembers_GroupId",
+                table: "GroupMembers",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupMember_Id",
-                table: "GroupMember",
+                name: "IX_GroupMembers_Id",
+                table: "GroupMembers",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_GroupMember_MemberId",
-                table: "GroupMember",
+                name: "IX_GroupMembers_MemberId",
+                table: "GroupMembers",
                 column: "MemberId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_Active",
-                table: "Member",
-                column: "Active");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Member_CommunityId",
-                table: "Member",
+                name: "IX_Groups_CommunityId",
+                table: "Groups",
                 column: "CommunityId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_Id",
-                table: "Member",
+                name: "IX_Groups_CreatorId",
+                table: "Groups",
+                column: "CreatorId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_DateArchived",
+                table: "Groups",
+                column: "DateArchived");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Groups_Id",
+                table: "Groups",
                 column: "Id");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Member_UserId",
-                table: "Member",
+                name: "IX_Groups_Membership",
+                table: "Groups",
+                column: "Membership");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_Active",
+                table: "Members",
+                column: "Active");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_CommunityId",
+                table: "Members",
+                column: "CommunityId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_Id",
+                table: "Members",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Members_UserId",
+                table: "Members",
                 column: "UserId",
                 unique: true);
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_DateArchived",
-                table: "Post",
+                name: "IX_PostMedia_Id",
+                table: "PostMedia",
+                column: "Id");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_PostMedia_PostId",
+                table: "PostMedia",
+                column: "PostId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_Posts_DateArchived",
+                table: "Posts",
                 column: "DateArchived");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_GroupId",
-                table: "Post",
+                name: "IX_Posts_GroupId",
+                table: "Posts",
                 column: "GroupId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_GroupMemberId",
-                table: "Post",
+                name: "IX_Posts_GroupMemberId",
+                table: "Posts",
                 column: "GroupMemberId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_Post_Id",
-                table: "Post",
+                name: "IX_Posts_Id",
+                table: "Posts",
                 column: "Id");
         }
 
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropTable(
-                name: "Comment");
+                name: "CommentMedia");
 
             migrationBuilder.DropTable(
-                name: "Post");
+                name: "PostMedia");
 
             migrationBuilder.DropTable(
-                name: "GroupMember");
+                name: "Comments");
 
             migrationBuilder.DropTable(
-                name: "Group");
+                name: "Posts");
 
             migrationBuilder.DropTable(
-                name: "Member");
+                name: "GroupMembers");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Communities_Id",
-                table: "Communities");
+            migrationBuilder.DropTable(
+                name: "Groups");
 
-            migrationBuilder.DropIndex(
-                name: "IX_Communities_SchoolId",
-                table: "Communities");
+            migrationBuilder.DropTable(
+                name: "Members");
 
-            migrationBuilder.DropColumn(
-                name: "Active",
-                table: "Communities");
-
-            migrationBuilder.DropColumn(
-                name: "DateCreated",
-                table: "Communities");
-
-            migrationBuilder.DropColumn(
-                name: "Name",
-                table: "Communities");
+            migrationBuilder.DropTable(
+                name: "Communities");
         }
     }
 }

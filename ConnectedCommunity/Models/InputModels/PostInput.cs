@@ -13,7 +13,6 @@ namespace ConnectedCommunity.Models.InputModels
         public int GroupMemberId { get; set; }
         public string Heading { get; set; }
         public string Content { get; set; }
-        public string Media { get; set; }
         public int GroupId { get; set; }
     }
 }

@@ -24,6 +24,7 @@
   "PostDoesNotExist": "The requested community member does not exist",
   "PostArchived": "The requested post has been archived",
   "PostContentEmpty": "The content of this post is empty",
+  "CannotUpdateMedia": "Cannot update media",
 
   "CommentDoesNotExist": "The requested comment does not exist",
   "CommentContentEmpty": "The content of this post is empty"

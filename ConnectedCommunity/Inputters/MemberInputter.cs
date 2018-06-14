@@ -52,6 +52,14 @@ namespace ConnectedCommunity.Inputters
 
         public override ValidationResult ValidateUpdate()
         {
+            string alias = input.Alias;
+            
+            if (!string.IsNullOrEmpty(alias))
+            {
+                current.Alias = alias;
+            }
+
+            processedInput = current;
             return ValidationResult.Success;
         }
 

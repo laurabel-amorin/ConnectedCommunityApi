@@ -6,12 +6,16 @@
 
   <ItemGroup>
     <Compile Remove="Migrations\20180611122625_Initial.cs" />
+    <Compile Remove="Migrations\20180611141716_Initial.cs" />
     <Compile Remove="Migrations\20180612104624_ForumModels.cs" />
     <Compile Remove="Migrations\20180612112959_ForumModels.cs" />
     <Compile Remove="Migrations\20180613054740_ForumModels.cs" />
     <Compile Remove="Migrations\20180613054817_ForumModels.cs" />
     <Compile Remove="Migrations\20180613055138_CommunityName.cs" />
     <Compile Remove="Migrations\20180613061323_PostMedia.cs" />
+    <Compile Remove="Migrations\20180613083930_ForumModels.cs" />
+    <Compile Remove="Migrations\20180614122158_SeparatedMedia.cs" />
+    <Compile Remove="Migrations\20180614122317_SeparatedMedia.cs" />
   </ItemGroup>
 
   <ItemGroup>

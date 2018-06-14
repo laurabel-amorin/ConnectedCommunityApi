@@ -39,8 +39,6 @@ namespace ConnectedCommunity.Model.Migrations
 
                     b.Property<int>("Likes");
 
-                    b.Property<string>("Media");
-
                     b.Property<int>("MemberId");
 
                     b.Property<int?>("ParentId");
@@ -59,7 +57,25 @@ namespace ConnectedCommunity.Model.Migrations
 
                     b.HasIndex("PostId");
 
-                    b.ToTable("Comment");
+                    b.ToTable("Comments");
+                });
+
+            modelBuilder.Entity("ConnectedCommunity.Model.CommentMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<int>("CommentId");
+
+                    b.Property<string>("Media");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CommentId");
+
+                    b.HasIndex("Id");
+
+                    b.ToTable("CommentMedia");
                 });
 
             modelBuilder.Entity("ConnectedCommunity.Model.Community", b =>
@@ -122,7 +138,7 @@ namespace ConnectedCommunity.Model.Migrations
 
                     b.HasIndex("Membership");
 
-                    b.ToTable("Group");
+                    b.ToTable("Groups");
                 });
 
             modelBuilder.Entity("ConnectedCommunity.Model.GroupMember", b =>
@@ -151,7 +167,7 @@ namespace ConnectedCommunity.Model.Migrations
                     b.HasIndex("MemberId")
                         .IsUnique();
 
-                    b.ToTable("GroupMember");
+                    b.ToTable("GroupMembers");
                 });
 
             modelBuilder.Entity("ConnectedCommunity.Model.Member", b =>
@@ -183,7 +199,7 @@ namespace ConnectedCommunity.Model.Migrations
                     b.HasIndex("UserId")
                         .IsUnique();
 
-                    b.ToTable("Member");
+                    b.ToTable("Members");
                 });
 
             modelBuilder.Entity("ConnectedCommunity.Model.Post", b =>
@@ -206,8 +222,6 @@ namespace ConnectedCommunity.Model.Migrations
                     b.Property<string>("Heading")
                         .IsRequired();
 
-                    b.Property<string>("Media");
-
                     b.Property<int>("MemberId");
 
                     b.HasKey("Id");
@@ -220,7 +234,25 @@ namespace ConnectedCommunity.Model.Migrations
 
                     b.HasIndex("Id");
 
-                    b.ToTable("Post");
+                    b.ToTable("Posts");
+                });
+
+            modelBuilder.Entity("ConnectedCommunity.Model.PostMedia", b =>
+                {
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd();
+
+                    b.Property<string>("Media");
+
+                    b.Property<int>("PostId");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("Id");
+
+                    b.HasIndex("PostId");
+
+                    b.ToTable("PostMedia");
                 });
 
             modelBuilder.Entity("ConnectedCommunity.Model.Comment", b =>
@@ -237,6 +269,14 @@ namespace ConnectedCommunity.Model.Migrations
                     b.HasOne("ConnectedCommunity.Model.Post", "Post")
                         .WithMany("Comments")
                         .HasForeignKey("PostId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConnectedCommunity.Model.CommentMedia", b =>
+                {
+                    b.HasOne("ConnectedCommunity.Model.Comment", "Comment")
+                        .WithMany("Media")
+                        .HasForeignKey("CommentId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 
@@ -283,6 +323,14 @@ namespace ConnectedCommunity.Model.Migrations
                     b.HasOne("ConnectedCommunity.Model.GroupMember", "GroupMember")
                         .WithMany("Posts")
                         .HasForeignKey("GroupMemberId")
+                        .OnDelete(DeleteBehavior.Cascade);
+                });
+
+            modelBuilder.Entity("ConnectedCommunity.Model.PostMedia", b =>
+                {
+                    b.HasOne("ConnectedCommunity.Model.Post", "Post")
+                        .WithMany("Media")
+                        .HasForeignKey("PostId")
                         .OnDelete(DeleteBehavior.Cascade);
                 });
 #pragma warning restore 612, 618

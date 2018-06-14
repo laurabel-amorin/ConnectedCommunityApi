@@ -15,11 +15,13 @@ namespace ConnectedCommunity.Model
         }
 
         public virtual DbSet<Community> Communities { get; set; }
-        public virtual DbSet<Post> Members { get; set; }
+        public virtual DbSet<Member> Members { get; set; }
         public virtual DbSet<Post> Posts { get; set; }
-        public virtual DbSet<Post> Comments { get; set; }
-        public virtual DbSet<Post> GroupMembers { get; set; }
-        public virtual DbSet<Post> Groups { get; set; }
+        public virtual DbSet<Comment> Comments { get; set; }
+        public virtual DbSet<GroupMember> GroupMembers { get; set; }
+        public virtual DbSet<Group> Groups { get; set; }
+        public virtual DbSet<CommentMedia> CommentMedia { get; set; }
+        public virtual DbSet<PostMedia> PostMedia { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -54,6 +56,14 @@ namespace ConnectedCommunity.Model
             modelBuilder.Entity<Member>().HasIndex(member => member.Id);
             modelBuilder.Entity<Member>().HasIndex(member => member.UserId).IsUnique();
             modelBuilder.Entity<Member>().HasIndex(member => member.Active).IsUnique(false);
+
+            //post media
+            modelBuilder.Entity<PostMedia>().HasIndex(pmedia => pmedia.Id);
+            modelBuilder.Entity<PostMedia>().HasIndex(pmedia => pmedia.PostId).IsUnique(false);
+
+            //comment media
+            modelBuilder.Entity<CommentMedia>().HasIndex(cmedia => cmedia.Id);
+            modelBuilder.Entity<CommentMedia>().HasIndex(cmedia => cmedia.CommentId).IsUnique(false);
         }
     }
 }

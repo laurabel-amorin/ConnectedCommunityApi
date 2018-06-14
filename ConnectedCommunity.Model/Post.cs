@@ -22,8 +22,6 @@ namespace ConnectedCommunity.Model
         [Searchable]
         public string Content { get; set; }
 
-        public string Media { get; set; }
-
         [Sortable]
         [Required]
         public int GroupId { get; set; }
@@ -47,5 +45,7 @@ namespace ConnectedCommunity.Model
         public GroupMember GroupMember { get; set; }
 
         public List<Comment> Comments { get; set; }
+
+        public List<PostMedia> Media { get; set; }
     }
 }

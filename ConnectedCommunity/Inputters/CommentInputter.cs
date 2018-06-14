@@ -46,6 +46,12 @@ namespace ConnectedCommunity.Inputters
 
         public override ValidationResult ValidateUpdate()
         {
+            if (!string.IsNullOrEmpty(input.Content))
+            {
+                current.Content = input.Content;
+                current.DateModified = DateTime.UtcNow;
+            }
+            processedInput = current;
             return ValidationResult.Success;
         }
 

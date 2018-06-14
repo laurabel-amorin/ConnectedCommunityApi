@@ -12,14 +12,16 @@ namespace ConnectedCommunity.Services
     public class PostService
     {
         private readonly IPostRepository postRepo;
+        private readonly IPostMediaRepository postMediaRepo;
         private readonly PostVerifier postVerifier;
         private readonly GroupMemberVerifier groupMemberVerifier;
         private readonly MemberVerifier MemberVerifier;
 
-        public PostService(IPostRepository postRepo, ICommentRepository commentRepo,
+        public PostService(IPostRepository postRepo, IPostMediaRepository postMediaRepo, ICommentRepository commentRepo,
             IGroupMemberRepository groupMemberRepo, IMemberRepository memberRepo)
         {
             this.postRepo = postRepo;
+            this.postMediaRepo = postMediaRepo;
             postVerifier = new PostVerifier(postRepo);
             groupMemberVerifier = new GroupMemberVerifier(groupMemberRepo);
             MemberVerifier = new MemberVerifier(memberRepo);
