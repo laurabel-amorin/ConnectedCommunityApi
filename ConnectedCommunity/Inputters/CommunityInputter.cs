@@ -46,7 +46,8 @@ namespace ConnectedCommunity.Inputters
             {
                 SchoolId = input.SchoolId,
                 SchoolName = input.SchoolName,
-                Name = string.IsNullOrEmpty(input.Name) ? input.SchoolName : input.Name
+                Name = string.IsNullOrEmpty(input.Name) ? input.SchoolName : input.Name,
+                DateCreated=DateTime.UtcNow
             };
             return ValidationResult.Success;
         }

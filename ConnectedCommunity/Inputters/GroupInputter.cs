@@ -42,7 +42,8 @@ namespace ConnectedCommunity.Inputters
                 Name=input.Name,
                 CommunityId=input.CommunityId,
                 Description=input.Description,
-                Membership=input.Membership==null?Membership.Open:input.Membership.Value
+                Membership=input.Membership==null?Membership.Open:input.Membership.Value,
+                DateCreated = DateTime.UtcNow
             };
             return ValidationResult.Success;
         }
