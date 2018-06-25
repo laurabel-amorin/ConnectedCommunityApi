@@ -10,9 +10,9 @@ namespace ConnectedCommunity.Controllers
     [Route("api/comments")]
     public class CommentsController : BaseController
     {
-        private readonly CommentService commentService;
+        private readonly ICommentService commentService;
 
-        public CommentsController(CommentService commentService)
+        public CommentsController(ICommentService commentService)
         {
             this.commentService = commentService;
         }

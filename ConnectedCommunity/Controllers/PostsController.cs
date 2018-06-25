@@ -10,9 +10,9 @@ namespace ConnectedCommunity.Controllers
     [Route("api/posts")]
     public class PostsController : BaseController
     {
-        private readonly PostService postService;
+        private readonly IPostService postService;
 
-        public PostsController(PostService postService)
+        public PostsController(IPostService postService)
         {
             this.postService = postService;
         }
@@ -21,7 +21,7 @@ namespace ConnectedCommunity.Controllers
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok();
+            return Ok(Json("hi"));
         }
     }
 }

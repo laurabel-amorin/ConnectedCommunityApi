@@ -10,9 +10,9 @@ namespace ConnectedCommunity.Controllers
     [Route("api/members")]
     public class MembersController : BaseController
     {
-        private readonly MemberService memberService;
+        private readonly IMemberService memberService;
 
-        public MembersController(MemberService memberService)
+        public MembersController(IMemberService memberService)
         {
             this.memberService = memberService;
         }

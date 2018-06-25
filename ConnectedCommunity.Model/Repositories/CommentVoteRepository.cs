@@ -6,12 +6,13 @@ using System.Text;
 
 namespace ConnectedCommunity.Model.Repositories
 {
-    public interface ICommentMediaRepository:IRepository<CommentMedia>{
+    public interface ICommentVoteRepository:IRepository<CommentVote>
+    {
     }
 
-    public class CommentMediaRepository: Repository<CommentMedia>, ICommentMediaRepository
+    public class CommentVoteRepository : Repository<CommentVote>, ICommentVoteRepository
     {
-        public CommentMediaRepository(AppDataContext context):base(context)
+        public CommentVoteRepository(AppDataContext context):base(context)
         {
         }
     }

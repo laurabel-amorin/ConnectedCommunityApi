@@ -22,6 +22,8 @@ namespace ConnectedCommunity.Model
         public virtual DbSet<Group> Groups { get; set; }
         public virtual DbSet<CommentMedia> CommentMedia { get; set; }
         public virtual DbSet<PostMedia> PostMedia { get; set; }
+        public virtual DbSet<CommentVote> CommentVotes { get; set; }
+        public virtual DbSet<GroupInvite> GroupInvites { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
@@ -64,6 +66,14 @@ namespace ConnectedCommunity.Model
             //comment media
             modelBuilder.Entity<CommentMedia>().HasIndex(cmedia => cmedia.Id);
             modelBuilder.Entity<CommentMedia>().HasIndex(cmedia => cmedia.CommentId).IsUnique(false);
+
+            //comment votes
+            modelBuilder.Entity<CommentVote>().HasIndex(cvote => cvote.CommentId).IsUnique(false);
+            modelBuilder.Entity<CommentVote>().HasIndex(cvote => cvote.GroupMemberId).IsUnique(false);
+
+            //group invites
+            modelBuilder.Entity<GroupInvite>().HasIndex(gi => gi.GroupId).IsUnique(false);
+            modelBuilder.Entity<GroupInvite>().HasIndex(gi => gi.MemberId).IsUnique(false);
         }
     }
 }

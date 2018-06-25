@@ -16,6 +16,8 @@
     <Compile Remove="Migrations\20180613083930_ForumModels.cs" />
     <Compile Remove="Migrations\20180614122158_SeparatedMedia.cs" />
     <Compile Remove="Migrations\20180614122317_SeparatedMedia.cs" />
+    <Compile Remove="Migrations\20180614122523_Initial.cs" />
+    <Compile Remove="Migrations\20180618125141_Initial.cs" />
   </ItemGroup>
 
   <ItemGroup>

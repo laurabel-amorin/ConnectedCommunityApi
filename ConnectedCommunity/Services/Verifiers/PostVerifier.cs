@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class PostVerifier
+    public interface IPostVerifier
+    {
+        Task<ValidationResult> VerifyPost(int postId);
+        Task<ValidationResult> VerifyActivePost(int postId);
+    }
+
+    public class PostVerifier:IPostVerifier
     {
         private readonly IPostRepository postRepo;
         public Post Post;

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using ConnectedCommunity.Model;
+using ConnectedCommunity.Model.Repositories;
+using ConnectedCommunity.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.EntityFrameworkCore;
@@ -30,6 +32,28 @@ namespace ConnectedCommunity
             //services.AddTransient<IUserRepository, UserRepository>();
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
             services.AddEntityFrameworkNpgsql().AddDbContext<AppDataContext>(options => options.UseNpgsql(connectionString));
+            services.AddTransient<ICommunityRepository, CommunityRepository>();
+            services.AddTransient<IMemberRepository, MemberRepository>();
+            services.AddTransient<IGroupRepository, GroupRepository>();
+            services.AddTransient<IGroupMemberRepository, GroupMemberRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
+            services.AddTransient<IPostMediaRepository, PostMediaRepository>();           
+            services.AddTransient<ICommentRepository, CommentRepository>();
+            services.AddTransient<ICommentMediaRepository, CommentMediaRepository>();
+            services.AddTransient<ICommentVoteRepository, CommentVoteRepository>();
+            services.AddTransient<IGroupInviteRepository, GroupInviteRepository>();
+            services.AddTransient<ICommunityService, CommunityService>();
+            services.AddTransient<IMemberService, MemberService>();
+            services.AddTransient<IGroupService, GroupService>();
+            services.AddTransient<IGroupMemberService, GroupMemberService>();
+            services.AddTransient<IPostService, PostService>();
+            services.AddTransient<ICommentService, CommentService>();
+            services.AddTransient<ICommunityVerifier, CommunityVerifier>();
+            services.AddTransient<IMemberVerifier, MemberVerifier>();
+            services.AddTransient<IGroupVerifier, GroupVerifier>();
+            services.AddTransient<IGroupMemberVerifier, GroupMemberVerifier>();
+            services.AddTransient<IPostVerifier, PostVerifier>();
+            services.AddTransient<ICommentVerifier, CommentVerifier>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

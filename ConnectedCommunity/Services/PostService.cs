@@ -9,13 +9,18 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class PostService
+    public interface IPostService
+    {
+
+    }
+
+    public class PostService:IPostService
     {
         private readonly IPostRepository postRepo;
         private readonly IPostMediaRepository postMediaRepo;
-        private readonly PostVerifier postVerifier;
-        private readonly GroupMemberVerifier groupMemberVerifier;
-        private readonly MemberVerifier MemberVerifier;
+        private readonly IPostVerifier postVerifier;
+        private readonly IGroupMemberVerifier groupMemberVerifier;
+        private readonly IMemberVerifier MemberVerifier;
 
         public PostService(IPostRepository postRepo, IPostMediaRepository postMediaRepo, ICommentRepository commentRepo,
             IGroupMemberRepository groupMemberRepo, IMemberRepository memberRepo)

@@ -10,9 +10,9 @@ namespace ConnectedCommunity.Controllers
     [Route("api/groupMembers")]
     public class GroupMembersController : BaseController
     {
-        private readonly GroupMemberService groupMemberService;
+        private readonly IGroupMemberService groupMemberService;
 
-        public GroupMembersController(GroupMemberService groupMemberService)
+        public GroupMembersController(IGroupMemberService groupMemberService)
         {
             this.groupMemberService = groupMemberService;
         }

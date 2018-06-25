@@ -9,12 +9,17 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class GroupMemberService
+    public interface IGroupMemberService
+    {
+
+    }
+
+    public class GroupMemberService:IGroupMemberService
     {
         private readonly IGroupMemberRepository groupMemberRepo;
-        private readonly GroupMemberVerifier groupMemberVerifier;
-        private readonly GroupVerifier groupVerifier;
-        private readonly MemberVerifier memberVerifier;
+        private readonly IGroupMemberVerifier groupMemberVerifier;
+        private readonly IGroupVerifier groupVerifier;
+        private readonly IMemberVerifier memberVerifier;
 
         public GroupMemberService(IGroupMemberRepository groupMemberRepo, IGroupRepository groupRepo,IMemberRepository memberRepo)
         {

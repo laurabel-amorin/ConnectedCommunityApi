@@ -9,11 +9,16 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class MemberService
+    public interface IMemberService
+    {
+
+    }
+
+    public class MemberService:IMemberService
     {
         private readonly IMemberRepository memberRepo;
-        private readonly CommunityVerifier communityVerifier;
-        private readonly MemberVerifier memberVerifier;
+        private readonly ICommunityVerifier communityVerifier;
+        private readonly IMemberVerifier memberVerifier;
 
         public MemberService(ICommunityRepository communityRepo, IMemberRepository memberRepo)
         {

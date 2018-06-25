@@ -11,14 +11,19 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class CommentService
+    public interface ICommentService
+    {
+
+    }
+
+    public class CommentService:ICommentService
     {
         private readonly ICommentRepository commentRepo;
         private readonly ICommentMediaRepository commentMediaRepo;
-        private readonly CommentVerifier commentVerifier;
-        private readonly PostVerifier postVerifier;
-        private readonly GroupMemberVerifier groupMemberVerifier;
-        private readonly MemberVerifier MemberVerifier;
+        private readonly ICommentVerifier commentVerifier;
+        private readonly IPostVerifier postVerifier;
+        private readonly IGroupMemberVerifier groupMemberVerifier;
+        private readonly IMemberVerifier MemberVerifier;
 
 
         public CommentService(ICommentRepository commentRepo, ICommentMediaRepository commentMediaRepo, IPostRepository postRepo, IGroupMemberRepository groupMemberRepo, 

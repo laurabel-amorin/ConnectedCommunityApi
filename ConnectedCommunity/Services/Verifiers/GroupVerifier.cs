@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class GroupVerifier
+    public interface IGroupVerifier
+    {
+        Task<ValidationResult> VerifyGroup(int groupId);
+        Task<ValidationResult> VerifyGroupAccessibility(int groupId);
+    }
+
+    public class GroupVerifier:IGroupVerifier
     {
         private readonly IGroupRepository groupRepo;
         public Group Group;

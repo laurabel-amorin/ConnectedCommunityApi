@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class CommunityVerifier
+    public interface ICommunityVerifier
+    {
+        Task<ValidationResult> VerifyCommunity(int communityId);
+        Task<ValidationResult> VerifyActiveCommunity(int communityId);
+    }
+
+    public class CommunityVerifier:ICommunityVerifier
     {
         private readonly ICommunityRepository communityRepo;
         public Community Community;

@@ -9,7 +9,13 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class MemberVerifier
+    public interface IMemberVerifier
+    {
+        Task<ValidationResult> VerifyMember(int memberId);
+        Task<ValidationResult> VerifyActiveMember(int memberId);
+    }
+
+    public class MemberVerifier:IMemberVerifier
     {
         private readonly IMemberRepository memberRepo;
         public Member Member;

@@ -9,7 +9,14 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class GroupMemberVerifier
+    public interface IGroupMemberVerifier
+    {
+        Task<ValidationResult> VerifyGroupMember(int groupMemberId);
+        Task<ValidationResult> VerifyGroupMember(int groupId, int memberId);
+        Task<ValidationResult> VerifyActiveGroupMember(int groupMemberId);
+    }
+
+    public class GroupMemberVerifier:IGroupMemberVerifier
     {
         private readonly IGroupMemberRepository groupMemberRepo;
         public GroupMember GroupMember;
@@ -19,7 +26,7 @@ namespace ConnectedCommunity.Services
             this.groupMemberRepo = groupMemberRepo;
         }
 
-        protected async Task<ValidationResult> VerifyGroupMember(int groupMemberId)
+        public async Task<ValidationResult> VerifyGroupMember(int groupMemberId)
         {
             GroupMember = await groupMemberRepo.FindAsync(groupMemberId);
             if (GroupMember == null)
@@ -29,7 +36,7 @@ namespace ConnectedCommunity.Services
             return ValidationResult.Success;
         }
 
-        protected async Task<ValidationResult> VerifyGroupMember(int groupId, int memberId)
+        public async Task<ValidationResult> VerifyGroupMember(int groupId, int memberId)
         {
             var groupMembers = await groupMemberRepo.GetAsync(gm=>(gm.GroupId==groupId)&&(gm.MemberId==memberId));
             if (groupMembers.Any())
@@ -43,7 +50,7 @@ namespace ConnectedCommunity.Services
             return new ValidationResult(MessageStrings.Get(MessageStrings.GroupDoesNotExist));
         }
 
-        protected async Task<ValidationResult> VerifyActiveGroupMember(int groupMemberId)
+        public async Task<ValidationResult> VerifyActiveGroupMember(int groupMemberId)
         {
             var validateGroupMemberResult = await VerifyGroupMember(groupMemberId);
             if (validateGroupMemberResult != ValidationResult.Success)

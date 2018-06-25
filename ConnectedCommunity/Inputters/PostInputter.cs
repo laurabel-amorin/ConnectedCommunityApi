@@ -54,7 +54,7 @@ namespace ConnectedCommunity.Inputters
                 MemberId=input.MemberId,
                 GroupMemberId=input.GroupMemberId,
                 Content=input.Content,
-                Heading=heading,
+                Title=heading,
                 DateCreated=DateTime.UtcNow
             };
             return ValidationResult.Success;
@@ -70,7 +70,7 @@ namespace ConnectedCommunity.Inputters
 
             if (!string.IsNullOrEmpty(input.Heading))
             {
-                current.Heading = input.Heading;
+                current.Title = input.Heading;
                 current.DateModified = DateTime.UtcNow;
             }
 

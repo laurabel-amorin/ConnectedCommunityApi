@@ -7,38 +7,48 @@ using System.Text;
 
 namespace ConnectedCommunity.Model
 {
+    [Table("posts")]
     public class Post
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
         [DefaultSortable]
+        [Column("id")]
         public int Id { get; set; }
 
         [Searchable]
         [Sortable]
         [Required]
-        public string Heading { get; set; }
+        [Column("title")]
+        public string Title { get; set; }
 
         [Searchable]
+        [Column("content")]
         public string Content { get; set; }
 
         [Sortable]
         [Required]
+        [Column("group_id")]
         public int GroupId { get; set; }
 
         [Sortable]
+        [Column("member_id")]
         public int MemberId { get; set; }
 
         [Sortable]
+        [Column("group_member_id")]
         public int GroupMemberId { get; set; }
 
         [Sortable]
+        [Column("date_created")]
         public DateTime DateCreated { get; set; }
 
         [Sortable]
+        [Column("date_modified")]
         public DateTime? DateModified { get; set; }
 
         [Sortable]
+        [Column("date_archived")]
         public DateTime? DateArchived { get; set; }
 
         [ForeignKey("GroupMemberId")]

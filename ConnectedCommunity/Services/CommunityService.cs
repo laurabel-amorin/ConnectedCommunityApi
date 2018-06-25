@@ -1,26 +1,36 @@
-﻿using ConnectedCommunity.Model;
+﻿using ConnectedCommunity.Inputters;
+using ConnectedCommunity.Model;
 using ConnectedCommunity.Model.Repositories;
 using ConnectedCommunity.Models.IndexParamModels;
+using ConnectedCommunity.Models.InputModels;
 using ConnectedCommunity.Models.OutputModels;
 using Microsoft.EntityFrameworkCore;
 using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class CommunityService
+    public interface ICommunityService
+    {
+        Task<CommunityOpResult> Get(int communityId);
+        CommunityOpResult Get(CommunityParams parameters);
+        Task<CommunityOpResult> Create(CommunityInput communityInput);
+    }
+
+    public class CommunityService:ICommunityService
     {
         private readonly ICommunityRepository communityRepo;
-        private readonly CommunityVerifier communityVerifier;
+        private readonly ICommunityVerifier communityVerifier;
 
         public CommunityService(ICommunityRepository communityRepo)
         {
             this.communityRepo = communityRepo;
             communityVerifier = new CommunityVerifier(communityRepo);
         }
-
+        
         public async Task<CommunityOpResult> Get(int communityId)
         {
             var community = await communityRepo.FindAsync(communityId);
@@ -53,6 +63,24 @@ namespace ConnectedCommunity.Services
             };
         }
 
+        public async Task<CommunityOpResult> Create(CommunityInput communityInput)
+        {
+            var communityInputter = new CommunityInputter(communityRepo, communityInput);
+            var validationResult = communityInputter.ValidateNew();
+            if (validationResult != ValidationResult.Success)
+            {
+                return new CommunityOpResult
+                {
+                    Status = OpStatus.BadRequest
+                };
+            }
+            var community = communityInputter.GetProcessedInput();
+            await communityRepo.CreateAsync(community);
+            return new CommunityOpResult
+            {
+                Status = OpStatus.Ok, ResultCommunity=community
+            };
+        }
 
     }
 

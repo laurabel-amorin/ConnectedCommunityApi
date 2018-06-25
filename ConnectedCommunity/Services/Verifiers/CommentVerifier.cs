@@ -9,7 +9,11 @@ using System.Threading.Tasks;
 
 namespace ConnectedCommunity.Services
 {
-    public class CommentVerifier
+    public interface ICommentVerifier
+    {
+        Task<ValidationResult> VerifyComment(int commentId);
+    }
+    public class CommentVerifier:ICommentVerifier
     {
         private readonly ICommentRepository commentRepo;
         public Comment Comment;
@@ -19,7 +23,7 @@ namespace ConnectedCommunity.Services
             this.commentRepo = commentRepo;
         }
 
-        protected async Task<ValidationResult> VerifyComment(int commentId)
+        public async Task<ValidationResult> VerifyComment(int commentId)
         {
             var comment = await commentRepo.FindAsync(commentId);
             if (comment == null)

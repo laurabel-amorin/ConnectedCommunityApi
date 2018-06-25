@@ -10,9 +10,9 @@ namespace ConnectedCommunity.Controllers
     [Route("api/communities")]
     public class CommunitiesController : BaseController
     {
-        private readonly CommunityService communityService;
+        private readonly ICommunityService communityService;
 
-        public CommunitiesController(CommunityService communityService)
+        public CommunitiesController(ICommunityService communityService)
         {
             this.communityService = communityService;
         }

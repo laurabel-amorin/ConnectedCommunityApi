@@ -7,8 +7,18 @@ using System.Text;
 
 namespace ConnectedCommunity.Model
 {
-    [Table("group_members")]
-    public class GroupMember
+    public enum InviteType
+    {
+        Requested, Issued
+    }
+
+    public enum InviteStatus
+    {
+        Pending, Accepted, Declined, Finalized
+    }
+
+    [Table("group_invites")]
+    public class GroupInvite
     {
         [Key]
         [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
@@ -16,36 +26,29 @@ namespace ConnectedCommunity.Model
         [Column("id")]
         public int Id { get; set; }
 
-        [Sortable]
-        [Required]
-        [Column("member_id")]
-        public int MemberId { get; set; }
+        [Column("type")]
+        public InviteType Type { get; set; }
 
-        [Sortable]
-        [Required]
-        [Column("group_id")]
-        public int GroupId { get; set; }
-
-        [Sortable]
-        [Column("active")]
-        public bool Active { get; set; }
-
-        [Sortable]
-        [Column("admin")]
-        public bool Admin { get; set; }
+        [Column("status")]
+        public InviteStatus Status { get; set; }
 
         [Sortable]
         [Column("date_created")]
         public DateTime DateCreated { get; set; }
 
-        [ForeignKey("MemberId")]
-        public Member Member { get; set; }
+        [Sortable]
+        [Required]
+        [Column("member_id")]
+        public int MemberId { get; set; }
+
+        [Required]
+        [Column("group_id")]
+        public int GroupId { get; set; }
 
         [ForeignKey("GroupId")]
         public Group Group { get; set; }
 
-        public List<Post> Posts { get; set; }
-
-        public List<Comment> Comments { get; set; }
+        [ForeignKey("MemberId")]
+        public Member Member { get; set; }
     }
 }
